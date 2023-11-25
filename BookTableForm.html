@@ -98,7 +98,8 @@
             <div class="mb-3">
               <div class="loading">Loading</div>
               <div class="error-message"></div>
-              <div class="sent-message">Your booking request was sent. We will call back or send an Email to confirm
+              <div class="sent-message">Your booking request was sent. We will call back or send an Email
+                to confirm
                 your reservation. Thank you!</div>
             </div>
             <div class="text-center"><button type="submit">Book a Table</button></div>
@@ -113,7 +114,6 @@
   <!-- Form script  -->
 
   <script>
-
     document.addEventListener("DOMContentLoaded", function () {
       const form = document.querySelector('.php-email-form');
 
@@ -178,79 +178,38 @@
         const isValidMessage = validateMessage(message);
 
         // Show error messages if validation fails
-        if (!isValidName) {
-          showError('name', 'Please enter a name between 2 and 64 characters.');
-        } else {
-          hideError('name');
-        }
+        showError('name', 'Please enter a name between 2 and 64 characters.', isValidName);
+        showError('email', 'Please enter a valid email address.', isValidEmail);
+        showError('phone', 'Please enter a valid phone number.', isValidPhone);
+        showError('date', 'Please select a date after today.', isValidDate);
+        showError('time', 'Please select a time between 11 AM and 9 PM.', isValidTime);
+        showError('people', 'Please enter a number between 1 and 600.', isValidPeople);
+        showError('message', 'Message should be less than 1024 characters.', isValidMessage);
 
-        if (!isValidEmail) {
-          showError('email', 'Please enter a valid email address.');
-        } else {
-          hideError('email');
-        }
-
-        if (!isValidPhone) {
-          showError('phone', 'Please enter a valid phone number.');
-        } else {
-          hideError('phone');
-        }
-
-        if (!isValidDate) {
-          showError('date', 'Please select a date after today.');
-        } else {
-          hideError('date');
-        }
-
-        if (!isValidTime) {
-          showError('time', 'Please select a time between 11 AM and 9 PM.');
-        } else {
-          hideError('time');
-        }
-
-        if (!isValidPeople) {
-          showError('people', 'Please enter a number between 1 and 600.');
-        } else {
-          hideError('people');
-        }
-
-        if (!isValidMessage) {
-          showError('message', 'Message should be less than 1024 characters.');
-        } else {
-          hideError('message');
-        }
-
-        // Show popup message if message exceeds 1024 characters
-        if (message.length > 1024) {
-          alert("Maximum 1024 characters are accepted. For more details, please contact us.");
-          return;
-        }
-
-        // Submit the form if all validations pass
+        // Submit the form only if all validations pass
         if (isValidName && isValidEmail && isValidPhone && isValidDate && isValidTime && isValidPeople && isValidMessage) {
           form.submit();
         }
       });
 
       // Function to show error messages
-      function showError(inputName, errorMessage) {
+      function showError(inputName, errorMessage, isValid) {
         const inputField = document.getElementById(inputName);
         const errorElement = inputField.nextElementSibling;
         errorElement.innerHTML = errorMessage;
-        errorElement.style.display = 'block';
-      }
 
-      // Function to hide error messages
-      function hideError(inputName) {
-        const inputField = document.getElementById(inputName);
-        const errorElement = inputField.nextElementSibling;
-        errorElement.innerHTML = '';
-        errorElement.style.display = 'none';
+        // Apply styles
+        if (!isValid) {
+          errorElement.style.color = 'red';
+          errorElement.style.fontSize = '11px';
+          errorElement.style.display = 'block';
+        } else {
+          errorElement.style.display = 'none';
+        }
       }
     });
-
-
   </script>
+
 
   <!-- Form script  -->
 
