@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Yummy Bootstrap Template - Index</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Amatic+SC:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <!-- =======================================================
+    * Template Name: Yummy
+    * Updated: Sep 18 2023 with Bootstrap v5.3.2
+    * Template URL: https://bootstrapmade.com/yummy-bootstrap-restaurant-website-template/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+</head>
+</head>
+
+<body>
+
+  <!-- ======= Book A Table Section ======= -->
+  <section id="book-a-table" class="book-a-table">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-header">
+        <h2>Book A Table</h2>
+        <p>Book <span>Your Stay</span> With Us</p>
+      </div>
+
+      <div class="row g-0">
+
+        <div class="col-lg-4 reservation-img" style="background-image: url(assets/img/reservation.jpg);"
+          data-aos="zoom-out" data-aos-delay="200"></div>
+
+        <div class="col-lg-8 d-flex align-items-center reservation-form-bg">
+          <form action="forms/book-a-table.php" method="post" role="form" class="php-email-form" data-aos="fade-up"
+            data-aos-delay="100">
+            <div class="row gy-4">
+              <div class="col-lg-4 col-md-6">
+                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name"
+                  data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                <div class="validate"></div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                <input type="email" class="form-control" name="email" id="email" placeholder="Your Email"
+                  data-rule="email" data-msg="Please enter a valid email">
+                <div class="validate"></div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                <input type="text" class="form-control" name="phone" id="phone" placeholder="Your Phone"
+                  data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                <div class="validate"></div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                <input type="date" name="date" class="form-control" id="date" placeholder="Date" data-rule="minlen:4"
+                  data-msg="Please enter at least 4 chars">
+                <div class="validate"></div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                <input type="time" class="form-control" name="time" id="time" placeholder="Time" data-rule="minlen:4"
+                  data-msg="Please enter at least 4 chars">
+                <div class="validate"></div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                <input type="number" class="form-control" name="people" id="people" placeholder="# of people"
+                  data-rule="minlen:1" data-msg="Please enter at least 1 chars">
+                <div class="validate"></div>
+              </div>
+            </div>
+            <div class="form-group mt-3">
+              <textarea class="form-control" name="message" rows="5" placeholder="Message"></textarea>
+              <div class="validate"></div>
+            </div>
+            <div class="mb-3">
+              <div class="loading">Loading</div>
+              <div class="error-message"></div>
+              <div class="sent-message">Your booking request was sent. We will call back or send an Email to confirm
+                your reservation. Thank you!</div>
+            </div>
+            <div class="text-center"><button type="submit">Book a Table</button></div>
+          </form>
+        </div><!-- End Reservation Form -->
+
+      </div>
+
+    </div>
+  </section><!-- End Book A Table Section -->
+
+  <!-- Form script  -->
+
+  <script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.querySelector('.php-email-form');
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevents the form from submitting initially
+
+        // Validation functions
+        function validateName(name) {
+          return name.length >= 2 && name.length <= 64;
+        }
+
+        function validateEmail(email) {
+          const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return re.test(String(email).toLowerCase());
+        }
+
+        function validatePhone(phone) {
+          const re = /^\+?[0-9]{10}$/;
+          return re.test(String(phone));
+        }
+
+        function validateDate(date) {
+          const today = new Date();
+          const selectedDate = new Date(date);
+          return selectedDate > today;
+        }
+
+        function validateTime(time) {
+          const hours = parseInt(time.split(':')[0]);
+          const minutes = parseInt(time.split(':')[1]);
+
+          // Check if the time is between 11 AM and 9 PM (inclusive)
+          return (hours === 11 && minutes >= 0) ||
+            (hours > 11 && hours < 21) ||
+            (hours === 21 && minutes === 0);
+        }
+
+        function validatePeople(people) {
+          return people >= 1 && people <= 600;
+        }
+
+        function validateMessage(message) {
+          return message.length <= 1024;
+        }
+
+        // Get form values
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const date = document.getElementById('date').value;
+        const time = document.getElementById('time').value;
+        const people = parseInt(document.getElementById('people').value, 10);
+        const message = document.querySelector('textarea[name="message"]').value;
+
+        // Perform validation
+        const isValidName = validateName(name);
+        const isValidEmail = validateEmail(email);
+        const isValidPhone = validatePhone(phone);
+        const isValidDate = validateDate(date);
+        const isValidTime = validateTime(time);
+        const isValidPeople = validatePeople(people);
+        const isValidMessage = validateMessage(message);
+
+        // Show error messages if validation fails
+        if (!isValidName) {
+          showError('name', 'Please enter a name between 2 and 64 characters.');
+        } else {
+          hideError('name');
+        }
+
+        if (!isValidEmail) {
+          showError('email', 'Please enter a valid email address.');
+        } else {
+          hideError('email');
+        }
+
+        if (!isValidPhone) {
+          showError('phone', 'Please enter a valid phone number.');
+        } else {
+          hideError('phone');
+        }
+
+        if (!isValidDate) {
+          showError('date', 'Please select a date after today.');
+        } else {
+          hideError('date');
+        }
+
+        if (!isValidTime) {
+          showError('time', 'Please select a time between 11 AM and 9 PM.');
+        } else {
+          hideError('time');
+        }
+
+        if (!isValidPeople) {
+          showError('people', 'Please enter a number between 1 and 600.');
+        } else {
+          hideError('people');
+        }
+
+        if (!isValidMessage) {
+          showError('message', 'Message should be less than 1024 characters.');
+        } else {
+          hideError('message');
+        }
+
+        // Show popup message if message exceeds 1024 characters
+        if (message.length > 1024) {
+          alert("Maximum 1024 characters are accepted. For more details, please contact us.");
+          return;
+        }
+
+        // Submit the form if all validations pass
+        if (isValidName && isValidEmail && isValidPhone && isValidDate && isValidTime && isValidPeople && isValidMessage) {
+          form.submit();
+        }
+      });
+
+      // Function to show error messages
+      function showError(inputName, errorMessage) {
+        const inputField = document.getElementById(inputName);
+        const errorElement = inputField.nextElementSibling;
+        errorElement.innerHTML = errorMessage;
+        errorElement.style.display = 'block';
+      }
+
+      // Function to hide error messages
+      function hideError(inputName) {
+        const inputField = document.getElementById(inputName);
+        const errorElement = inputField.nextElementSibling;
+        errorElement.innerHTML = '';
+        errorElement.style.display = 'none';
+      }
+    });
+
+
+  </script>
+
+  <!-- Form script  -->
+
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
